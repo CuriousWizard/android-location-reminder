@@ -1,0 +1,130 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id "androidx.navigation.safeargs.kotlin"
+    id 'com.google.gms.google-services'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "com.curiouswizard.locationreminder"
+        minSdkVersion 16
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
+    testOptions.unitTests {
+        includeAndroidResources = true
+        returnDefaultValues = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "androidx.core:core-ktx:$core_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+    implementation "androidx.cardview:cardview:1.0.0"
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:27.1.0')
+    implementation "com.google.firebase:firebase-auth:$auth_version"
+
+    // Fragment
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
+
+    // Lifecycle
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version" // Annotation processor
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version" // ViewModel
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version" // LiveData
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version" // Lifecycles only
+
+    // Navigation - Kotlin
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    //Maps & Geofencing
+    implementation "com.google.android.gms:play-services-location:$location_version"
+    implementation "com.google.android.gms:play-services-maps:$maps_version"
+
+    // Material design
+    implementation "com.google.android.material:material:$material_version"
+
+    // Multidex
+    implementation "androidx.multidex:multidex:$multidex_version"
+
+    // GSON
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    // Koin - Main features for Android (Scope,ViewModel ...)
+    implementation "io.insert-koin:koin-android:$koin_version"
+
+    // Room
+    implementation "androidx.room:room-runtime:$room_version"
+
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version" // Kotlin Extensions and Coroutines support for Room
+
+    // For testing
+    debugImplementation "androidx.test.espresso:espresso-idling-resource:$espresso_version"
+
+    // AndroidX test - JVM testing
+    testImplementation "junit:junit:$junit_version"
+    testImplementation "androidx.arch.core:core-testing:$arch_version" // Test helpers for LiveData
+    testImplementation "org.hamcrest:hamcrest-all:$hamcrest_version"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinx_coroutines_version"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
+    testImplementation "org.robolectric:robolectric:$robolectric_version"
+    testImplementation "com.google.truth:truth:$truth_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+
+    // AndroidX Test - JVM testing
+    testImplementation "androidx.test:core-ktx:$androidxtest_version"
+    testImplementation "androidx.test:rules:$androidxtest_version"
+    testImplementation "androidx.test.ext:junit-ktx:$androidxjunit_version"
+
+    // AndroidX test - Instrumented testing
+    androidTestImplementation "androidx.test:core-ktx:$androidxtest_version"
+    androidTestImplementation "androidx.test.ext:junit-ktx:$androidxjunit_version"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinx_coroutines_version"
+    androidTestImplementation "androidx.test:rules:$androidxtest_version"
+    androidTestImplementation "androidx.room:room-testing:$room_version"
+    androidTestImplementation "androidx.arch.core:core-testing:$arch_version"
+    androidTestImplementation "org.robolectric:annotations:$robolectric_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espresso_version"
+    androidTestImplementation "androidx.test.espresso.idling:idling-concurrent:$espresso_version"
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+    androidTestImplementation "io.insert-koin:koin-test:$koin_version"
+    androidTestImplementation "org.mockito:mockito-core:$mockito_version"
+    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$dexmaker_version"
+    // Testing Fragments in Isolation
+    debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
+}
