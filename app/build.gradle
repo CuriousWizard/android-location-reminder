@@ -45,6 +45,7 @@ android {
 
 dependencies {
 
+    //noinspection DifferentStdlibGradleVersion
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$core_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
@@ -54,7 +55,9 @@ dependencies {
 
     // Firebase
     implementation platform('com.google.firebase:firebase-bom:27.1.0')
-    implementation "com.google.firebase:firebase-auth:$auth_version"
+    implementation "com.google.firebase:firebase-auth-ktx"
+    // FirebaseUI for Firebase Auth
+    implementation "com.firebaseui:firebase-ui-auth:$firebase_authUI_version"
 
     // Fragment
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
@@ -87,7 +90,6 @@ dependencies {
 
     // Room
     implementation "androidx.room:room-runtime:$room_version"
-
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version" // Kotlin Extensions and Coroutines support for Room
 
