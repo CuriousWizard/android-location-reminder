@@ -1,20 +1,26 @@
 package com.curiouswizard.locationreminder.locationreminders.reminderslist
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import com.curiouswizard.locationreminder.R
+import com.curiouswizard.locationreminder.authentication.AuthenticationActivity
 import com.curiouswizard.locationreminder.base.BaseFragment
 import com.curiouswizard.locationreminder.base.NavigationCommand
 import com.curiouswizard.locationreminder.databinding.FragmentRemindersBinding
+import com.curiouswizard.locationreminder.locationreminders.ReminderDescriptionActivity
 import com.curiouswizard.locationreminder.utils.setDisplayHomeAsUpEnabled
 import com.curiouswizard.locationreminder.utils.setTitle
+import com.curiouswizard.locationreminder.utils.setup
+import com.firebase.ui.auth.AuthUI
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ReminderListFragment : BaseFragment() {
     //use Koin to retrieve the ViewModel instance
     override val _viewModel: RemindersListViewModel by viewModel()
     private lateinit var binding: FragmentRemindersBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,12 +52,12 @@ class ReminderListFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        //load the reminders list on the ui
+        // Load the reminders list on the UI
         _viewModel.loadReminders()
     }
 
     private fun navigateToAddReminder() {
-        //use the navigationCommand live data to navigate between the fragments
+        // Use the navigationCommand live data to navigate between the fragments
         _viewModel.navigationCommand.postValue(
             NavigationCommand.To(
                 ReminderListFragmentDirections.toSaveReminder()
@@ -60,26 +66,37 @@ class ReminderListFragment : BaseFragment() {
     }
 
     private fun setupRecyclerView() {
-        val adapter = RemindersListAdapter {
+        val adapter = RemindersListAdapter { item ->
+            val intent = requireActivity().run {
+                ReminderDescriptionActivity.newIntent(this, item)
+            }
+            startActivity(intent)
         }
 
-//        setup the recycler view using the extension function
-        binding.reminderssRecyclerView.adapter = adapter
+        // Setup the recycler view using the extension function
+        binding.remindersRecyclerView.setup(adapter)
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            // Logout user if clicked to that menu item
             R.id.logout -> {
-//                TODO: add the logout implementation
+                AuthUI.getInstance()
+                    .signOut(requireContext())
+                    .addOnCompleteListener {
+                        val loginIntent = Intent(context, AuthenticationActivity::class.java)
+                        startActivity(loginIntent)
+                        requireActivity().finish()
+                    }
             }
         }
         return super.onOptionsItemSelected(item)
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-//        display logout as menu item
+        // Display logout as menu item
         inflater.inflate(R.menu.main_menu, menu)
     }
 
