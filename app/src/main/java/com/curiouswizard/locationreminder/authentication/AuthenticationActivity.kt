@@ -34,7 +34,7 @@ class AuthenticationActivity : AppCompatActivity() {
         binding = ActivityAuthenticationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnLogin.setOnClickListener {
+        binding.loginButton.setOnClickListener {
             launchSignInFlow()
         }
 
