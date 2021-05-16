@@ -125,6 +125,7 @@ dependencies {
     androidTestImplementation "androidx.test.espresso.idling:idling-concurrent:$espresso_version"
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
     androidTestImplementation("io.insert-koin:koin-test:$koin_version") { exclude group: 'org.mockito' }
+    androidTestImplementation "io.insert-koin:koin-test-junit4:$koin_version"
     androidTestImplementation "org.mockito:mockito-core:$mockito_version"
     androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$dexmaker_version"
     // Testing Fragments in Isolation
