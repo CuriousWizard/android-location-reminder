@@ -3,9 +3,9 @@ package com.curiouswizard.locationreminder.locationreminders.geofence
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.JobIntentService
+import com.curiouswizard.locationreminder.locationreminders.data.ReminderDataSource
 import com.curiouswizard.locationreminder.locationreminders.data.dto.ReminderDTO
 import com.curiouswizard.locationreminder.locationreminders.data.dto.Result
-import com.curiouswizard.locationreminder.locationreminders.data.local.RemindersLocalRepository
 import com.curiouswizard.locationreminder.locationreminders.reminderslist.ReminderDataItem
 import com.curiouswizard.locationreminder.utils.sendNotification
 import com.google.android.gms.location.Geofence
@@ -46,7 +46,7 @@ class GeofenceTransitionsJobIntentService : JobIntentService(), CoroutineScope {
         // Get the request id of the current geofence
         val requestId = triggeringGeofences[0].requestId
         // Get the local repository instance
-        val remindersLocalRepository: RemindersLocalRepository by inject()
+        val remindersLocalRepository: ReminderDataSource by inject()
 
         // Interaction to the repository has to be through a coroutine scope
         CoroutineScope(coroutineContext).launch(SupervisorJob()) {
