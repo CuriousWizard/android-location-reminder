@@ -20,7 +20,6 @@ import com.curiouswizard.locationreminder.locationreminders.data.local.Reminders
 import com.curiouswizard.locationreminder.locationreminders.reminderslist.ReminderListFragment
 import com.curiouswizard.locationreminder.locationreminders.reminderslist.ReminderListFragmentDirections
 import com.curiouswizard.locationreminder.locationreminders.reminderslist.RemindersListViewModel
-import com.curiouswizard.locationreminder.util.DataBindingIdlingResource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -43,7 +42,6 @@ import org.mockito.Mockito.verify
 class ReminderListFragmentTest : AutoCloseKoinTest() {
 
     private lateinit var repository: ReminderDataSource
-    private val dataBindingIdlingResource = DataBindingIdlingResource()
 
     private val item = ReminderDTO(
         "Test", "test", "Test place", 12.343434, 13.454545
