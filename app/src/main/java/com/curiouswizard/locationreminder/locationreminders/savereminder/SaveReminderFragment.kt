@@ -55,7 +55,8 @@ class SaveReminderFragment : BaseFragment() {
 
         binding.viewModel = _viewModel
 
-        geofencingClient = LocationServices.getGeofencingClient(requireActivity().applicationContext)
+        geofencingClient =
+            LocationServices.getGeofencingClient(requireActivity().applicationContext)
 
         return binding.root
     }
@@ -65,7 +66,7 @@ class SaveReminderFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = this
         binding.selectLocation.setOnClickListener {
-            //            Navigate to another fragment to get the user location
+            // Navigate to another fragment to get the user location
             _viewModel.navigationCommand.value =
                 NavigationCommand.To(SaveReminderFragmentDirections.actionSaveReminderFragmentToSelectLocationFragment())
         }
@@ -81,8 +82,8 @@ class SaveReminderFragment : BaseFragment() {
             val longitude = _viewModel.longitude.value
 
             val reminder = ReminderDataItem(title, description, location, latitude, longitude)
-            if (isBackgroundPermissionGranted()){
-                if(_viewModel.validateEnteredData(reminder)) {
+            if (isBackgroundPermissionGranted()) {
+                if (_viewModel.validateEnteredData(reminder)) {
                     createGeofence(reminder)
                     _viewModel.saveReminder(reminder)
                 }
@@ -159,9 +160,9 @@ class SaveReminderFragment : BaseFragment() {
     private fun isBackgroundPermissionGranted(): Boolean =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             PackageManager.PERMISSION_GRANTED ==
-                ContextCompat.checkSelfPermission(
-                    requireActivity(), Manifest.permission.ACCESS_BACKGROUND_LOCATION
-                )
+                    ContextCompat.checkSelfPermission(
+                        requireActivity(), Manifest.permission.ACCESS_BACKGROUND_LOCATION
+                    )
         } else {
             true
         }
@@ -192,7 +193,7 @@ class SaveReminderFragment : BaseFragment() {
                             Toast.LENGTH_LONG
                         ).show()
                     }
-                .show()
+                    .show()
             } else {
                 Snackbar.make(
                     requireView(),
@@ -212,7 +213,7 @@ class SaveReminderFragment : BaseFragment() {
                         )
                             .show()
                     }
-                .show()
+                    .show()
             }
         }
     }

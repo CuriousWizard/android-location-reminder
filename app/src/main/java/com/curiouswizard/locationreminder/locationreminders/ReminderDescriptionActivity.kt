@@ -14,17 +14,6 @@ import com.curiouswizard.locationreminder.locationreminders.reminderslist.Remind
  */
 class ReminderDescriptionActivity : AppCompatActivity() {
 
-    companion object {
-        private const val EXTRA_ReminderDataItem = "EXTRA_ReminderDataItem"
-
-        // Receive the reminder object after the user clicks on the notification
-        fun newIntent(context: Context, reminderDataItem: ReminderDataItem): Intent {
-            val intent = Intent(context, ReminderDescriptionActivity::class.java)
-            intent.putExtra(EXTRA_ReminderDataItem, reminderDataItem)
-            return intent
-        }
-    }
-
     private lateinit var binding: ActivityReminderDescriptionBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +26,16 @@ class ReminderDescriptionActivity : AppCompatActivity() {
         val reminderItem = intent.getSerializableExtra(EXTRA_ReminderDataItem) as ReminderDataItem
         binding.reminderDataItem = reminderItem
         binding.lifecycleOwner = this
+    }
 
+    companion object {
+        private const val EXTRA_ReminderDataItem = "EXTRA_ReminderDataItem"
 
+        // Receive the reminder object after the user clicks on the notification
+        fun newIntent(context: Context, reminderDataItem: ReminderDataItem): Intent {
+            val intent = Intent(context, ReminderDescriptionActivity::class.java)
+            intent.putExtra(EXTRA_ReminderDataItem, reminderDataItem)
+            return intent
+        }
     }
 }

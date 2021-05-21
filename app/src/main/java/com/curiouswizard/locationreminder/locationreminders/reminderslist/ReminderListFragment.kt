@@ -3,7 +3,6 @@ package com.curiouswizard.locationreminder.locationreminders.reminderslist
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import androidx.databinding.DataBindingUtil
 import com.curiouswizard.locationreminder.R
 import com.curiouswizard.locationreminder.authentication.AuthenticationActivity
 import com.curiouswizard.locationreminder.base.BaseFragment
@@ -24,12 +23,9 @@ class ReminderListFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding =
-            DataBindingUtil.inflate(
-                inflater,
-                R.layout.fragment_reminders, container, false
-            )
+            FragmentRemindersBinding.inflate(inflater, container, false)
         binding.viewModel = _viewModel
 
         setHasOptionsMenu(true)
@@ -99,5 +95,4 @@ class ReminderListFragment : BaseFragment() {
         // Display logout as menu item
         inflater.inflate(R.menu.main_menu, menu)
     }
-
 }
