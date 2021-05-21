@@ -26,6 +26,7 @@ import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import org.koin.android.ext.android.inject
+import java.util.*
 
 class SelectLocationFragment : BaseFragment(), OnMapReadyCallback, OnRequestPermissionsResultCallback{
 
@@ -108,6 +109,7 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback, OnRequestPerm
 
         setMapStyle(map)
         setPoiClick(map)
+        setMapLongClick(map)
         enableMyLocation()
     }
 
@@ -153,6 +155,27 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback, OnRequestPerm
                     .title(poi.name)
             )
             _viewModel.selectedPOI.postValue(poi)
+            onLocationSelected(marker!!)
+            marker!!.showInfoWindow()
+        }
+    }
+
+    private fun setMapLongClick(map: GoogleMap){
+        map.setOnMapLongClickListener { location ->
+            marker?.remove()
+            val snippet = String.format(
+                Locale.getDefault(),
+                "Lat: %1$.5f, Long: %2$.5f",
+                location.latitude,
+                location.longitude
+            )
+
+            marker = map.addMarker(
+                MarkerOptions()
+                    .position(location)
+                    .title(getString(R.string.dropped_pin))
+                    .snippet(snippet)
+            )
             onLocationSelected(marker!!)
             marker!!.showInfoWindow()
         }
